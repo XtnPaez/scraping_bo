@@ -1,4 +1,10 @@
-# BoletinChecker
+# scraping_BO
+
+![Python](https://img.shields.io/badge/Python-3.12.4-blue?logo=python&logoColor=white)
+![pdfplumber](https://img.shields.io/badge/pdfplumber-0.11-orange?logo=adobeacrobatreader&logoColor=white)
+![openpyxl](https://img.shields.io/badge/openpyxl-3.1-green?logo=microsoftexcel&logoColor=white)
+![Windows](https://img.shields.io/badge/Windows-portable-lightgrey?logo=windows&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-brightgreen)
 
 Sistema local para monitorear el **Boletín Oficial de la República Argentina – Primera Sección**.  
 Busca palabras clave dentro de los PDFs del Boletín y recupera los párrafos completos donde aparecen, generando reportes HTML diarios y un log Excel acumulativo.
@@ -20,6 +26,7 @@ Busca palabras clave dentro de los PDFs del Boletín y recupera los párrafos co
 
 ```
 scraping_bo/
+├── README.md
 ├── pdf_hoy/                        ← Pegá acá el PDF del día (cualquier nombre .pdf)
 ├── pdf_historicos/                 ← Pegá acá PDFs de días anteriores para reprocesar
 ├── palabras.txt                    ← Palabras clave para el flujo diario (una por línea)
@@ -30,15 +37,9 @@ scraping_bo/
 │   ├── run.bat                     ← Doble clic → ejecuta app.py
 │   ├── run_historico.bat           ← Doble clic → ejecuta historico.py
 │   ├── requirements.txt            ← Dependencias Python
-│   └── portable_python/            ← (Opcional) Python portable si no hay Python instalado
+│   └── portable_python/            ← Python portable (no se sube al repo, ver PYTHON_PORTABLE.md)
 ├── archivo/                        ← PDFs archivados automáticamente cuando hay resultados
-│   └── 2026/
-│       └── 04/
-│           └── 01/
-│               └── boletin_2026-04-01.pdf
 ├── resultados/                     ← Reportes HTML generados por ejecución
-│   ├── 2026-04-01_reporte.html
-│   └── ...
 └── registro/
     └── boletin_log.xlsx            ← Log acumulativo de todas las ejecuciones
 ```
@@ -47,19 +48,14 @@ scraping_bo/
 
 ## Requisitos
 
-- Python 3.8 o superior (portable o instalado)
+- Python 3.12.4 portable (WinPython dot, 64 bits) — ver `scripts/portable_python/PYTHON_PORTABLE.md`
+- Sin permisos de administrador requeridos
 - Librerías: ver `scripts/requirements.txt`
 
 Instalación de dependencias (solo la primera vez):
 
 ```bash
 pip install -r scripts/requirements.txt
-```
-
-Si usás Python portable o no tenés permisos de administrador:
-
-```bash
-pip install --user -r scripts/requirements.txt
 ```
 
 ---
