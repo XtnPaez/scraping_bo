@@ -1,0 +1,20 @@
+# Python portable - no subir al repo (es pesado, cada uno descarga el suyo)
+scripts/portable_python/WPy64-*/
+
+# PDFs de trabajo - no subir al repo
+pdf_hoy/
+pdf_historicos/
+
+# Archivos generados automáticamente
+archivo/
+resultados/
+registro/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Archivos temporales Windows
+Thumbs.db
+desktop.ini
