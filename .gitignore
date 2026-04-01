@@ -2,13 +2,13 @@
 scripts/portable_python/WPy64-*/
 
 # PDFs de trabajo - no subir al repo
-# pdf_hoy/
-# pdf_historicos/
+pdf_hoy/
+pdf_historicos/
 
 # Archivos generados automáticamente
-# archivo/
-# resultados/
-# registro/
+archivo/
+resultados/
+registro/
 
 # Python cache
 __pycache__/
