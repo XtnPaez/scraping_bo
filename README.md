@@ -59,8 +59,10 @@ scraping_bo/
 Abrí **WinPython Command Prompt** (está dentro de `scripts/portable_python/WPy64-31241/`) e ingresá el comando con la ruta completa al archivo:
 
 ```bash
-pip install -r C:\xampp\htdocs\scraping_bo\scripts\requirements.txt
+pip install -r RUTA_COMPLETA\scraping_bo\scripts\requirements.txt
 ```
+
+Por ejemplo: `C:\Users\tunombre\scraping_bo\scripts\requirements.txt`
 
 > **Atención:** no alcanza con `pip install -r requirements.txt` porque pip corre desde su propia carpeta y no encuentra el archivo. Siempre usá la ruta completa.
 
