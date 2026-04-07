@@ -154,8 +154,11 @@ def monitorear_url(fecha):
         if os.path.exists(EXCEL_PATH):
             wb = openpyxl.load_workbook(EXCEL_PATH)
             ws = wb.active
-            ultimo_id = ws.cell(row=ws.max_row, column=1).value or 0
-            nuevo_id = int(ultimo_id) + 1
+            ultimo_id = 0
+            for row in ws.iter_rows(min_row=2, max_col=1, values_only=True):
+                if row[0] is not None and str(row[0]).isdigit():
+                    ultimo_id = int(row[0])
+            nuevo_id = ultimo_id + 1
         else:
             wb = openpyxl.Workbook()
             ws = wb.active
