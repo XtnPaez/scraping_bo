@@ -56,7 +56,7 @@ scraping_bo/
 
 ### Instalación de dependencias (solo la primera vez)
 
-Abrí **WinPython Command Prompt** (está dentro de `scripts/portable_python/WPy64-31241/`) e ingresá el comando con la ruta completa al archivo:
+Abrí **WinPython Command Prompt** (está dentro de `scripts/portable_python/WPy64-XXXXX/`, el nombre de carpeta varía según la versión descargada) e ingresá el comando con la ruta completa al archivo:
 
 ```bash
 pip install -r RUTA_COMPLETA\scraping_bo\scripts\requirements.txt
