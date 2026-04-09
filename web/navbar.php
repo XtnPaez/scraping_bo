@@ -1,35 +1,33 @@
 <?php
-// navbar.php — incluir en todas las páginas
-// Uso: include 'navbar.php';
-// Definir $tab_activo antes de incluir: $tab_activo = 'subir';
-// Valores posibles: 'subir', 'ejecutar', 'historicos', 'sets', 'reejecutar'
-
 if (!isset($tab_activo)) $tab_activo = '';
 ?>
-<nav class="navbar">
-    <div class="navbar-brand">
-        <span class="brand-dot"></span>
-        scraping_BO
-    </div>
-    <div class="navbar-meta">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="index.php">
+        <span class="brand-dot"></span>scraping_BO
+    </a>
+    <span class="navbar-meta ml-auto d-none d-md-block">
         Boletín Oficial · Primera Sección &nbsp;|&nbsp; <?= date('d/m/Y') ?>
-    </div>
+    </span>
 </nav>
 
 <div class="tab-bar">
-    <a href="index.php?tab=subir"      class="<?= $tab_activo === 'subir'      ? 'active' : '' ?>">
-        <span class="tab-icon">📄</span> Subir PDF
-    </a>
-    <a href="index.php?tab=ejecutar"   class="<?= $tab_activo === 'ejecutar'   ? 'active' : '' ?>">
-        <span class="tab-icon">▶️</span> Ejecutar
-    </a>
-    <a href="index.php?tab=historicos" class="<?= $tab_activo === 'historicos' ? 'active' : '' ?>">
-        <span class="tab-icon">🔍</span> Históricos
-    </a>
-    <a href="index.php?tab=sets"       class="<?= $tab_activo === 'sets'       ? 'active' : '' ?>">
-        <span class="tab-icon">🗂️</span> Sets de palabras
-    </a>
-    <a href="index.php?tab=reejecutar" class="<?= $tab_activo === 'reejecutar' ? 'active' : '' ?>">
-        <span class="tab-icon">🔁</span> Re-ejecutar
-    </a>
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link <?= $tab_activo==='subir'      ? 'active':'' ?>" href="index.php?tab=subir">📄 Subir PDF</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?= $tab_activo==='ejecutar'   ? 'active':'' ?>" href="index.php?tab=ejecutar">▶️ Ejecutar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?= $tab_activo==='historicos' ? 'active':'' ?>" href="index.php?tab=historicos">🔍 Históricos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?= $tab_activo==='sets'       ? 'active':'' ?>" href="index.php?tab=sets">🗂️ Sets de palabras</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?= $tab_activo==='reejecutar' ? 'active':'' ?>" href="index.php?tab=reejecutar">🔁 Re-ejecutar</a>
+            </li>
+        </ul>
+    </div>
 </div>

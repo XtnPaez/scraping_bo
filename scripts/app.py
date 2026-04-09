@@ -19,14 +19,12 @@ def get_con():
     con.execute("PRAGMA foreign_keys = ON")
     return con
 
-
 def leer_palabras(set_id):
     con = get_con()
     cur = con.execute("SELECT palabra FROM palabras WHERE set_id = ?", (set_id,))
     palabras = [row[0] for row in cur.fetchall()]
     con.close()
     return palabras
-
 
 def ya_ejecutado(fecha_boletin, set_id):
     con = get_con()
@@ -37,7 +35,6 @@ def ya_ejecutado(fecha_boletin, set_id):
     existe = cur.fetchone() is not None
     con.close()
     return existe
-
 
 def guardar_ejecucion(fecha_boletin, ruta_pdf, set_id, tiene_resultados, cant_palabras, cant_parrafos):
     con = get_con()
@@ -60,7 +57,6 @@ def guardar_ejecucion(fecha_boletin, ruta_pdf, set_id, tiene_resultados, cant_pa
     con.close()
     return ejecucion_id
 
-
 def guardar_resultados(ejecucion_id, resultados):
     con = get_con()
     for palabra, parrafos in resultados.items():
@@ -75,7 +71,6 @@ def guardar_resultados(ejecucion_id, resultados):
 # ─── PDF ──────────────────────────────────────────────────────────────────────
 
 def extraer_fecha_pdf(pdf_path):
-    """Intenta extraer la fecha de la primera pagina del PDF."""
     meses = {
         "enero": "01", "febrero": "02", "marzo": "03", "abril": "04",
         "mayo": "05", "junio": "06", "julio": "07", "agosto": "08",
@@ -97,11 +92,9 @@ def extraer_fecha_pdf(pdf_path):
         pass
     return None
 
-
 def archivar_pdf(pdf_path, fecha_str):
-    """Archiva el PDF en archivo/anio/mes/dia.pdf. Retorna la ruta final."""
     anio, mes, dia_completo = fecha_str.split("-")
-    dia = str(int(dia_completo))  # sin cero: 9 en lugar de 09
+    dia       = str(int(dia_completo))
     dest_dir  = os.path.join(ARCHIVO, anio, mes)
     dest_path = os.path.join(dest_dir, "{}.pdf".format(dia))
     os.makedirs(dest_dir, exist_ok=True)
@@ -111,7 +104,6 @@ def archivar_pdf(pdf_path, fecha_str):
     else:
         print("PDF ya archivado en: {}".format(dest_path))
     return dest_path
-
 
 def extraer_parrafos(pdf_path):
     texto_completo = ""
@@ -124,7 +116,6 @@ def extraer_parrafos(pdf_path):
     parrafos_raw   = re.split(r'(?<=\.)\s+', texto_completo)
     return [p.strip() for p in parrafos_raw if len(p.strip()) >= 10]
 
-
 def buscar_palabras(parrafos, palabras):
     resultados = {}
     for palabra in palabras:
@@ -134,12 +125,34 @@ def buscar_palabras(parrafos, palabras):
             resultados[palabra] = matches
     return resultados
 
+# ─── MODO: SOLO FECHA ─────────────────────────────────────────────────────────
+
+def modo_solo_fecha(pdf_path):
+    fecha = extraer_fecha_pdf(pdf_path)
+    if fecha:
+        print("FECHA:{}".format(fecha))
+    else:
+        print("FECHA:no_encontrada")
+
 # ─── MAIN ─────────────────────────────────────────────────────────────────────
 
 def main():
-    # Argumentos: pdf_path set_id [fecha_boletin]
+    if len(sys.argv) < 2:
+        print("ERROR: uso -> app.py <pdf_path> <set_id>")
+        print("             app.py --solo-fecha <pdf_path>")
+        sys.exit(1)
+
+    # Modo solo-fecha: extraer fecha y salir
+    if sys.argv[1] == '--solo-fecha':
+        if len(sys.argv) < 3:
+            print("FECHA:no_encontrada")
+            sys.exit(1)
+        modo_solo_fecha(sys.argv[2])
+        sys.exit(0)
+
+    # Modo normal: pdf_path + set_id
     if len(sys.argv) < 3:
-        print("ERROR: uso -> app.py <pdf_path> <set_id> [fecha_boletin]")
+        print("ERROR: uso -> app.py <pdf_path> <set_id>")
         sys.exit(1)
 
     pdf_path      = sys.argv[1]
@@ -150,12 +163,10 @@ def main():
     print("  scraping_BO — {}".format(datetime.now().strftime("%d/%m/%Y %H:%M")))
     print("="*60 + "\n")
 
-    # 1. Verificar PDF
     if not os.path.exists(pdf_path):
         print("ERROR: no se encuentra el PDF: {}".format(pdf_path))
         sys.exit(1)
 
-    # 2. Extraer fecha del PDF si no viene como argumento
     if not fecha_boletin:
         fecha_boletin = extraer_fecha_pdf(pdf_path)
         if fecha_boletin:
@@ -164,31 +175,24 @@ def main():
             print("ERROR: no se pudo extraer la fecha del PDF.")
             sys.exit(1)
 
-    # 3. Control de duplicados
     if ya_ejecutado(fecha_boletin, set_id):
         print("DUPLICADO: esta combinacion PDF + set ya fue procesada.")
         print("fecha_boletin={} set_id={}".format(fecha_boletin, set_id))
         sys.exit(2)
 
-    # 4. Archivar PDF
     ruta_pdf = archivar_pdf(pdf_path, fecha_boletin)
 
-    # 5. Leer palabras del set
     palabras = leer_palabras(set_id)
     if not palabras:
         print("ERROR: el set {} no tiene palabras cargadas.".format(set_id))
         sys.exit(1)
     print("Palabras en el set: {}".format(len(palabras)))
 
-    # 6. Extraer parrafos
     print("Procesando PDF...")
     parrafos = extraer_parrafos(ruta_pdf)
     print("Parrafos extraidos: {}".format(len(parrafos)))
 
-    # 7. Buscar
-    resultados = buscar_palabras(parrafos, palabras)
-
-    # 8. Guardar en la base
+    resultados    = buscar_palabras(parrafos, palabras)
     cant_parrafos = sum(len(v) for v in resultados.values())
     ejecucion_id  = guardar_ejecucion(
         fecha_boletin, ruta_pdf, set_id,
