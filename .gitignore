@@ -1,14 +1,14 @@
 # Python portable - no subir al repo (es pesado, cada uno descarga el suyo)
-scripts/portable_python/WPy64-*/
+scripts/portable_python/
 
-# PDFs de trabajo - no subir al repo
-pdf_hoy/
-pdf_historicos/
+# PHP portable - no subir al repo (es pesado, cada uno descarga el suyo)
+web/portable_php/
 
-# Archivos generados automáticamente
+# PDFs archivados - no subir al repo
 archivo/
-resultados/
-registro/
+
+# Base de datos - no subir al repo
+db/*.db
 
 # Python cache
 __pycache__/
