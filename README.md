@@ -46,7 +46,7 @@ scraping_bo/
     ├── ejecutar.php                ← Llama a app.py y devuelve resultados
     ├── sets.php                    ← ABM de sets de palabras (alta y consulta)
     ├── historicos.php              ← Búsqueda de resultados históricos
-    ├── portable_php/
+    ├── portable_php/               ← PHP portable (no se sube al repo)
     │   └── PHP_PORTABLE.md         
     └── assets/
         ├── style.css
