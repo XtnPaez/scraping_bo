@@ -35,7 +35,6 @@ scraping_bo/
 │           └── 9.pdf               ← Un PDF por día (día sin cero: 1, 9, 15...)
 ├── db/
 │   └── boletin.db                  ← Base de datos SQLite
-├── resultados/                     ← (reservado para exportaciones futuras)
 ├── scripts/
 │   ├── app.py                      ← Motor de procesamiento Python
 │   ├── requirements.txt            ← Dependencias Python
@@ -47,6 +46,8 @@ scraping_bo/
     ├── ejecutar.php                ← Llama a app.py y devuelve resultados
     ├── sets.php                    ← ABM de sets de palabras (alta y consulta)
     ├── historicos.php              ← Búsqueda de resultados históricos
+    ├── portable_php/
+    │   └── PHP_PORTABLE.md         
     └── assets/
         ├── style.css
         └── app.js
