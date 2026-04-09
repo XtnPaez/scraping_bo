@@ -171,7 +171,7 @@ Luego abrir el navegador en `http://localhost:8080`.
 ## Limitaciones conocidas
 
 - Procesa únicamente PDFs de texto extraíble. No funciona con PDFs escaneados (imágenes).
-- El PDF del día debe descargarse manualmente desde el sitio del Boletín Oficial. La descarga automática requiere Selenium o Playwright (pendiente Etapa 2).
+- El PDF del día debe descargarse manualmente desde el sitio del Boletín Oficial.
 - Si hay más de un PDF en una misma carpeta de día, el sistema toma el primero encontrado (situación que no debería ocurrir por diseño).
 
 ---
@@ -180,7 +180,6 @@ Luego abrir el navegador en `http://localhost:8080`.
 
 - [pdfplumber](https://github.com/jsvine/pdfplumber) — extracción de texto de PDFs
 - [SQLite](https://www.sqlite.org/) — base de datos local
-- [requests](https://requests.readthedocs.io/) — monitoreo de URL (legacy, revisión en Etapa 2)
 - PHP built-in server — interfaz web sin instalación
 - Python estándar (`os`, `re`, `datetime`, `shutil`)
 
