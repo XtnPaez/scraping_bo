@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.5-777BB4?logo=php&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-3-003B57?logo=sqlite&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-4.5-7952B3?logo=bootstrap&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)
 ![pdfplumber](https://img.shields.io/badge/pdfplumber-0.11-orange)
 ![Windows](https://img.shields.io/badge/Windows-portable-lightgrey?logo=windows&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-brightgreen)
@@ -20,7 +20,7 @@ Permite cargar PDFs del Boletín, buscar palabras clave organizadas en sets reut
 - El usuario elige un set de palabras clave y ejecuta la búsqueda.
 - El sistema busca cada entrada (case-insensitive, coincidencia exacta de frase) y recupera los párrafos completos donde aparece.
 - Los resultados quedan registrados en una base de datos SQLite y se muestran en pantalla.
-- El historial de ejecuciones y resultados es consultable por fecha, palabra o set.
+- El historial de ejecuciones y resultados es consultable por fecha, set o texto.
 - Los sets de palabras son inmutables: garantizan trazabilidad completa de cada búsqueda.
 
 ---
@@ -46,7 +46,7 @@ scraping_bo/
 │   └── portable_python/            ← Python portable (no se sube al repo)
 │       └── PYTHON_PORTABLE.md
 └── web/
-    ├── index.php                   ← Punto de entrada principal (enruta los 5 tabs)
+    ├── index.php                   ← Punto de entrada principal
     ├── navbar.php                  ← Navbar compartida
     ├── footer.php                  ← Footer compartido
     ├── subir.php                   ← Tab 1: subir y archivar PDF
@@ -146,10 +146,10 @@ Los sets se cargan desde un archivo `.csv` con las siguientes características:
 - Una palabra o frase por línea
 - Sin encabezado
 - Sin punto y coma ni delimitadores
-- Origen compatible: Excel (Windows-1252) o texto plano (UTF-8)
+- Origen compatible: Excel en Windows (Windows-1252) o texto plano (UTF-8)
 - El sistema normaliza el encoding automáticamente
 
-Cada set tiene un **alias** (máximo 20 caracteres, único) que lo identifica en los combos de la interfaz, y una descripción opcional.
+Cada set tiene un **alias** (máximo 20 caracteres, único) visible en los combos de la interfaz, y una descripción opcional de libre uso.
 
 ---
 
@@ -157,20 +157,11 @@ Cada set tiene un **alias** (máximo 20 caracteres, único) que lo identifica en
 
 | Componente | Tecnología | Motivo |
 |-----------|-----------|--------|
-| Interfaz | PHP 8.5 portable + Bootstrap 4 | Sin instalación, corre con servidor built-in de PHP |
+| Interfaz | PHP 8.5 portable + Bootstrap 5.3 | Sin instalación, corre con servidor built-in de PHP |
 | Motor de búsqueda | Python 3.12 portable | Portable, sin permisos de administrador |
 | Extracción de PDF | pdfplumber | Robusto para PDFs de texto |
 | Base de datos | SQLite | Sin servidor, archivo único, portable |
 | Servidor local | `php -S localhost:8080` | Built-in, sin XAMPP ni instalación |
-
----
-
-## Requisitos
-
-- Python 3.12 portable (WinPython dot, 64 bits)
-- PHP 8.5 portable (NTS, Win32, VS17, x64)
-- Sin permisos de administrador requeridos
-- Dependencias Python: ver `scripts/requirements.txt`
 
 ---
 
@@ -195,7 +186,7 @@ python init_db.py
 En `web/portable_php/php.ini` verificar que estén activas las siguientes extensiones y parámetros:
 
 ```ini
-; Extensiones requeridas (quitar el ; del inicio)
+; Extensiones requeridas (quitar el ; del inicio si están comentadas)
 extension=pdo_sqlite
 extension=sqlite3
 
@@ -214,6 +205,9 @@ max_input_time = 300
 
 ; Memoria
 memory_limit = 256M
+
+; Silenciar notices
+error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED
 ```
 
 > La carpeta `tmp` debe crearse manualmente dentro de `portable_php/` si no existe.
@@ -238,7 +232,7 @@ Abrir el navegador en `http://localhost:8080`.
 
 - [pdfplumber](https://github.com/jsvine/pdfplumber) — extracción de texto de PDFs
 - [SQLite](https://www.sqlite.org/) — base de datos local
-- [Bootstrap 4](https://getbootstrap.com/docs/4.5/) — interfaz web
+- [Bootstrap 5.3](https://getbootstrap.com/) — interfaz web
 - PHP built-in server — servidor local sin instalación
 - Python estándar (`os`, `re`, `datetime`, `shutil`, `sqlite3`)
 
