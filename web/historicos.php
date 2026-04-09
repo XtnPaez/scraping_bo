@@ -91,13 +91,13 @@ if ($detalle_id > 0) {
         <input type="hidden" name="tab" value="historicos">
         <div style="display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:1rem; align-items:end;">
 
-            <div class="form-group" style="margin:0">
+            <div class="mb-3" style="margin:0">
                 <label for="fecha">Fecha del boletín</label>
                 <input type="date" id="fecha" name="fecha"
                        value="<?= htmlspecialchars($filtro_fecha) ?>">
             </div>
 
-            <div class="form-group" style="margin:0">
+            <div class="mb-3" style="margin:0">
                 <label for="set_id">Set de palabras</label>
                 <select id="set_id" name="set_id">
                     <option value="0">— Todos —</option>
@@ -110,7 +110,7 @@ if ($detalle_id > 0) {
                 </select>
             </div>
 
-            <div class="form-group" style="margin:0">
+            <div class="mb-3" style="margin:0">
                 <label for="texto">Palabra o texto</label>
                 <input type="text" id="texto" name="texto"
                        placeholder="ej: incompatibilidad"

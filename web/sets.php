@@ -113,7 +113,7 @@ unset($set);
 
         <form method="POST" enctype="multipart/form-data">
 
-            <div class="form-group">
+            <div class="mb-3">
                 <label for="alias">Alias <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="alias" name="alias"
                        maxlength="20"
@@ -122,7 +122,7 @@ unset($set);
                 <small class="form-text text-muted">Máximo 20 caracteres. Debe ser único.</small>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
                 <label for="descripcion">Descripción <span class="text-muted">(opcional)</span></label>
                 <input type="text" class="form-control" id="descripcion" name="descripcion"
                        maxlength="255"
@@ -130,15 +130,12 @@ unset($set);
                        value="<?= htmlspecialchars($_POST['descripcion'] ?? '') ?>">
             </div>
 
-            <div class="form-group">
-                <label for="csv_file">Archivo CSV <span class="text-danger">*</span></label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="csv_file" name="csv_file" accept=".csv">
-                    <label class="custom-file-label" for="csv_file">Seleccioná un archivo .csv</label>
-                </div>
-                <small class="form-text text-muted">
+            <div class="mb-3">
+                <label for="csv_file" class="form-label">Archivo CSV <span class="text-danger">*</span></label>
+                <input type="file" class="form-control" id="csv_file" name="csv_file" accept=".csv">
+                <div class="form-text">
                     Una palabra o frase por línea, sin encabezado. Las frases se buscan de forma exacta (equivalente a buscar entre comillas).
-                </small>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">💾 Guardar set</button>
@@ -161,7 +158,7 @@ unset($set);
                          style="background:#343a40; color:#fff;">
                         <div>
                             <span class="mono font-weight-bold"><?= htmlspecialchars($set['alias']) ?></span>
-                            <span class="badge badge-warning ml-2"><?= count($set['palabras']) ?> entrada(s)</span>
+                            <span class="badge badge-warning ms-2"><?= count($set['palabras']) ?> entrada(s)</span>
                         </div>
                         <small class="mono" style="opacity:0.5;">
                             ID <?= $set['id'] ?> · <?= $set['fecha_creacion'] ?>
@@ -176,7 +173,7 @@ unset($set);
 
                     <div class="card-body py-2 px-3">
                         <?php foreach ($set['palabras'] as $p): ?>
-                            <span class="badge badge-secondary mr-1 mb-1"
+                            <span class="badge badge-secondary me-1 mb-1"
                                   style="font-size:0.78rem; font-weight:400;">
                                 <?= htmlspecialchars($p) ?>
                             </span>
@@ -188,10 +185,4 @@ unset($set);
     </div>
 </div>
 
-<script>
-// Mostrar nombre del archivo seleccionado
-document.getElementById('csv_file').addEventListener('change', function() {
-    var label = this.nextElementSibling;
-    label.textContent = this.files.length ? this.files[0].name : 'Seleccioná un archivo .csv';
-});
-</script>
+

@@ -1,21 +1,12 @@
 /* ─── IMPORTS ────────────────────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap');
 
-/* ─── LAYOUT sticky footer ───────────────────────────────────────────────────── */
-html { height: 100%; }
-
+/* ─── LAYOUT ─────────────────────────────────────────────────────────────────── */
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
     padding-top: 56px; /* altura navbar fixed-top */
 }
 
-.main-content { flex: 1; }
-
 /* ─── NAVBAR ─────────────────────────────────────────────────────────────────── */
-.navbar { border-bottom: 3px solid #e8a020; }
-
 .navbar-brand {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 1rem;
@@ -36,50 +27,11 @@ body {
     50%       { opacity: 0.3; }
 }
 
-.navbar-meta {
+.navbar-text {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.72rem;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.45) !important;
 }
-
-/* ─── TABS ───────────────────────────────────────────────────────────────────── */
-.tab-bar {
-    background: #fff;
-    border-bottom: 1px solid #dee2e6;
-    margin-bottom: 1.5rem;
-}
-
-.tab-bar .nav-link {
-    color: #495057;
-    border-bottom: 3px solid transparent;
-    border-radius: 0;
-    padding: 12px 16px;
-    font-size: 0.875rem;
-}
-
-.tab-bar .nav-link:hover {
-    color: #212529;
-    border-bottom-color: #dee2e6;
-}
-
-.tab-bar .nav-link.active {
-    color: #212529;
-    font-weight: 600;
-    border-bottom-color: #e8a020;
-}
-
-/* ─── FOOTER ─────────────────────────────────────────────────────────────────── */
-footer {
-    background: #343a40;
-    color: rgba(255,255,255,0.5);
-    text-align: center;
-    padding: 12px 1rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    border-top: 3px solid #e8a020;
-}
-
-footer span { color: #e8a020; }
 
 /* ─── CARD TITLE ─────────────────────────────────────────────────────────────── */
 .card-title-bo {
@@ -92,6 +44,9 @@ footer span { color: #e8a020; }
     padding-bottom: 0.75rem;
     margin-bottom: 1rem;
     border-bottom: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 /* ─── UPLOAD ZONE ────────────────────────────────────────────────────────────── */
@@ -111,8 +66,17 @@ footer span { color: #e8a020; }
     background: #e9ecef;
 }
 
-.upload-zone .upload-icon { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
-.upload-zone p { color: #6c757d; font-size: 0.875rem; margin: 0; }
+.upload-zone .upload-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.upload-zone p {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin: 0;
+}
 
 /* ─── BLOQUES DE RESULTADO ───────────────────────────────────────────────────── */
 .resultado-bloque { margin-bottom: 1rem; }
@@ -143,11 +107,20 @@ footer span { color: #e8a020; }
 .parrafo-item:nth-child(even) { background: #f8f9fa; }
 
 /* ─── LOADER ─────────────────────────────────────────────────────────────────── */
-.loader { display: none; align-items: center; gap: 8px; margin-top: 0.75rem; font-size: 0.875rem; color: #6c757d; }
+.loader {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
 .loader.active { display: flex; }
 
 .spinner {
-    width: 16px; height: 16px;
+    width: 16px;
+    height: 16px;
     border: 2px solid #dee2e6;
     border-top-color: #343a40;
     border-radius: 50%;

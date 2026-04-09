@@ -124,7 +124,7 @@ if ($ejecucion_id) {
 
         <form method="POST" id="form-ejecutar">
 
-            <div class="form-group">
+            <div class="mb-3">
                 <label for="pdf_path">PDF archivado</label>
                 <select id="pdf_path" name="pdf_path">
                     <option value="">— Elegí un boletín —</option>
@@ -139,7 +139,7 @@ if ($ejecucion_id) {
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="mb-3">
                 <label for="set_id">Set de palabras</label>
                 <select id="set_id" name="set_id">
                     <option value="">— Elegí un set —</option>

@@ -138,7 +138,7 @@ if ($ejecucion_id) {
     <?php endif; ?>
 
     <form method="POST" id="form-ejecutar">
-        <div class="form-group">
+        <div class="mb-3">
             <label for="set_id">Set de palabras</label>
             <?php if (empty($sets)): ?>
                 <div class="alert alert-warning">
