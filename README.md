@@ -176,33 +176,6 @@ Luego abrir el navegador en `http://localhost:8080`.
 
 ---
 
-## Roadmap
-
-### Etapa 1 — MVP con interfaz web *(prioridad actual)*
-- [ ] Interfaz PHP con 5 tabs
-- [ ] Upload y archivado de PDF con extracción automática de fecha
-- [ ] Alta y consulta de sets de palabras en SQLite
-- [ ] Motor de búsqueda Python integrado vía `shell_exec()`
-- [ ] Resultados en pantalla desde la base
-- [ ] Control de duplicados PDF + set
-- [ ] Búsqueda histórica por fecha y texto
-
-### Etapa 2 — Descarga automática del PDF
-- [ ] Confirmar 15 días de estabilidad de la URL del Boletín Oficial
-- [ ] Implementar descarga automática con Selenium o Playwright portable
-- [ ] Eliminar la necesidad de descarga manual
-
-### Etapa 3 — Clasificación semántica (NLP básico)
-- [ ] Clasificar párrafos encontrados por tipo de relación normativa (incompatibilidad, complementariedad, derogación, modificación)
-- [ ] Búsqueda por tipo de relación en el Tab 3
-
-### Etapa 4 — Integración con infraestructura CNCPS
-- [ ] Migración de SQLite a base de datos relacional en servidor
-- [ ] Integración con Power BI
-- [ ] Sistema de alertas por nueva normativa relevante
-
----
-
 ## Tecnologías
 
 - [pdfplumber](https://github.com/jsvine/pdfplumber) — extracción de texto de PDFs
