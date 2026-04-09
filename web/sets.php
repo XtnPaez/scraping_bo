@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mensaje = 'El alias es obligatorio.';
         $tipo    = 'error';
 
-    } elseif (mb_strlen($alias) > 20) {
+    } elseif (strlen($alias) > 20) {
         $mensaje = 'El alias no puede superar los 20 caracteres.';
         $tipo    = 'error';
 
@@ -45,8 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tipo    = 'error';
 
         } else {
-            // Leer CSV
+            // Leer CSV — forzar conversion Windows-1252 a UTF-8 (origen: Excel)
             $lineas = file($_FILES['csv_file']['tmp_name'], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            $lineas = array_map(function($l) {
+                return iconv('Windows-1252', 'UTF-8//IGNORE', $l);
+            }, $lineas);
             $palabras = array_values(array_unique(array_filter(
                 array_map('trim', $lineas),
                 fn($l) => $l !== ''

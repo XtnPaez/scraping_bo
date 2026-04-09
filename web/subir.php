@@ -6,9 +6,26 @@ define('ARCHIVO_DIR', BASE_DIR . '\\archivo');
 define('PYTHON_EXE', BASE_DIR . '\\scripts\\portable_python\\WPy64-31241\\python-3.12.4.amd64\\python.exe');
 define('APP_PY',     BASE_DIR . '\\scripts\\app.py');
 
-$mensaje = null;
-$tipo    = null;
+$mensaje  = null;
+$tipo     = null;
 $pdf_info = null;
+
+// Mensajes desde redirect
+$status = $_GET['status'] ?? '';
+$fecha_get = $_GET['fecha'] ?? '';
+if ($status === 'ok') {
+    list($anio, $mes, $dia_str) = explode('-', $fecha_get);
+    $dia = (int)$dia_str;
+    $mensaje  = 'PDF archivado correctamente: ' . $anio . '/' . $mes . '/' . $dia . '.pdf';
+    $tipo     = 'success';
+    $pdf_info = ['fecha' => $fecha_get, 'ruta' => ARCHIVO_DIR . '\\' . $anio . '\\' . $mes . '\\' . $dia . '.pdf', 'nuevo' => true];
+} elseif ($status === 'existe') {
+    list($anio, $mes, $dia_str) = explode('-', $fecha_get);
+    $dia = (int)$dia_str;
+    $mensaje  = 'Ya existe un PDF archivado para el ' . $dia . '/' . $mes . '/' . $anio . '. No se sobreescribió.';
+    $tipo     = 'warning';
+    $pdf_info = ['fecha' => $fecha_get, 'ruta' => ARCHIVO_DIR . '\\' . $anio . '\\' . $mes . '\\' . $dia . '.pdf', 'nuevo' => false];
+}
 
 // ─── POST: recibir PDF ────────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf_file'])) {
@@ -44,14 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['pdf_file'])) {
             if (!is_dir($dest_dir)) mkdir($dest_dir, 0777, true);
 
             if (file_exists($dest)) {
-                $mensaje  = 'Ya existe un PDF archivado para el ' . $dia . '/' . $mes . '/' . $anio . '. No se sobreescribió.';
-                $tipo     = 'warning';
-                $pdf_info = ['fecha' => $fecha, 'ruta' => $dest, 'nuevo' => false];
+                header('Location: index.php?tab=subir&status=existe&fecha=' . urlencode($fecha));
+                exit;
             } else {
                 move_uploaded_file($tmp, $dest);
-                $mensaje  = 'PDF archivado correctamente: ' . $anio . '/' . $mes . '/' . $dia . '.pdf';
-                $tipo     = 'success';
-                $pdf_info = ['fecha' => $fecha, 'ruta' => $dest, 'nuevo' => true];
+                header('Location: index.php?tab=subir&status=ok&fecha=' . urlencode($fecha));
+                exit;
             }
 
         } else {
